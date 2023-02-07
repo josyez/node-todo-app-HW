@@ -43,12 +43,22 @@ describe("Just testing the server", function(){
 
         //it.only => to only test one 
         it("should be able to delete a todo", function(done){
-            request(server).delete("/todo/oILg?admin=true").expect(200).end(function(err, responde){
+            request(server).delete("/todo/2loD?admin=true").expect(200).end(function(err, response){
                 if(err){
                     throw err;
                 } else {
                     // return done(err);
                     
+                    done();
+                }
+            });
+        });
+
+        it("should be able to get a todo", function(done){
+            request(server).get("/todo?admin=true").expect(200).end(function(err, response){
+                if(err){
+                    throw err;
+                } else {
                     done();
                 }
             });
