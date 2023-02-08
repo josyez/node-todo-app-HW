@@ -1,7 +1,6 @@
 import express from "express";
 import { nanoid } from "nanoid";
 
-
 export default function setupTodoRouter(db) {
   const router = express.Router();
 
@@ -12,6 +11,17 @@ export default function setupTodoRouter(db) {
       //Set our response to have a status of 200 (OK!) and to respond with JSON
       success: true,
       todos: db.data.todos, //Returns the todos from our DB
+    });
+  });
+
+  router.get("/:todo", function (request, response) {
+    const todo = request.params.todo;
+
+    const currentTodo = db.data.todos.find((todoItem) => todoItem.id === todo);
+
+    response.status(200).json({
+      success: true,
+      todo: currentTodo,
     });
   });
 
@@ -61,6 +71,25 @@ export default function setupTodoRouter(db) {
 
     response.status(200).json({
       success: true,
+    });
+  });
+
+  router.get("/:id", function (request, response) {
+    const getOneId = request.params.id;
+    const todoIndex = db.data.todos.findIndex(
+      (currentTodo) => currentTodo.id === getOneId
+    );
+
+    db.write();
+    response.status(200).json({
+      success: true,
+      todos: todo.data.todos[todoIndex],
+    });
+
+    response.status(200).json({
+      //Set our response to have a status of 200 (OK!) and to respond with JSON
+      success: true,
+      todos: db.data.todos, //Returns the todos from our DB
     });
   });
 

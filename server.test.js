@@ -16,6 +16,26 @@ describe("Just testing the server", function(){
             })
         });
 
+        it("should be able to get all todos", function(done){
+            request(server).get("/todo?admin=true").expect(200).end(function(err, response){
+                if(err){
+                    throw err;
+                } else {
+                    done();
+                }
+            });
+        });
+
+        it("should be able to get specific todo", function(done){
+            request(server).get("/todo/JViz?admin=true").expect(200).end(function(err, response){
+                if(err){
+                    throw err;
+                }else{
+                    done();
+                }
+            });
+        });
+
 
         it("should be able to create a new todo", function(done){
             request(server).post("/todo?admin=true").send({todo: "clean the garage"}).set('Accept', 'application/json').expect(200).end(function(err, response){
@@ -43,7 +63,7 @@ describe("Just testing the server", function(){
 
         //it.only => to only test one 
         it("should be able to delete a todo", function(done){
-            request(server).delete("/todo/2loD?admin=true").expect(200).end(function(err, response){
+            request(server).delete("/todo/tJNP?admin=true").expect(200).end(function(err, response){
                 if(err){
                     throw err;
                 } else {
@@ -54,15 +74,7 @@ describe("Just testing the server", function(){
             });
         });
 
-        it("should be able to get a todo", function(done){
-            request(server).get("/todo?admin=true").expect(200).end(function(err, response){
-                if(err){
-                    throw err;
-                } else {
-                    done();
-                }
-            });
-        });
+
 
     })
 })
